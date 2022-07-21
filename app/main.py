@@ -24,8 +24,6 @@ async def current_data(lat, lon):
     """Takes in latitide & longitude as path paramters, makes a request to Weather API with coordinates & returns reponse in JSON format"""
     params = {"lat": lat, "lon": lon,
               "appid": WEATHER_API_KEY, "units": "imperial"}
-    async with aiohttp.ClientSession() as session:
-        async with session.get("https://api.openweathermap.org/data/2.5/weather",
-                               params=params) as response:
-            current_weather_data = await response.json()
+    async with aiohttp.ClientSession() as session, session.get("https://api.openweathermap.org/data/2.5/weather", params=params) as response:
+        current_weather_data = await response.json()
     return current_weather_data
